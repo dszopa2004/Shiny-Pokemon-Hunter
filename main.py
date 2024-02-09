@@ -10,16 +10,15 @@ print("After pressing 'k', press 'q' to stop the program.")
 keyboard.wait('k')
 print("Starting the program...")
 
-
+# Capture screen
 def capture_screen(region=None):
     screenshot = pyautogui.screenshot(region=region)
     img_bgr = np.array(screenshot)
     img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
     return img_rgb
 
+
 # Uses image detection to detect if a battle has been found
-
-
 def detect_battle(template, screen, threshold=0.9):
     result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
@@ -29,10 +28,9 @@ def detect_battle(template, screen, threshold=0.9):
         print("Battle found!")
         return True
 
+
 # Movement function for player
-# Currently not in use
-
-
+# Simulates the needed keystrokes to move
 def move_character():
     print("Moving character...")
     pyautogui.keyDown('left')
@@ -46,6 +44,8 @@ def move_character():
     print("Done.")
 
 
+# Function exits the battle by simulating the keystrokes
+# required to leave a battle
 def exit_battle():
     print("Exiting battle...")
     sleep(5)
@@ -84,15 +84,19 @@ def exit_battle():
 
 
 def main():
+    # Read the battle_image
     battle_image = cv2.imread("battle_image.png", cv2.IMREAD_COLOR)
 
     while True:
         screen = capture_screen()
         found_battle = detect_battle(battle_image, screen)
 
+        # Moves character until the battle_image is detected
         if found_battle:
             print("Found battle, exiting program.")
             sleep(1)
+
+            # Currently exits battle as soon as it enters one
             exit_battle()
             break
         else:
