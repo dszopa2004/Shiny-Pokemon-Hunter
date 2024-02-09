@@ -17,8 +17,10 @@ def capture_screen(region=None):
     img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
     return img_rgb
 
+# Uses image detection to detect if a battle has been found
 
-def find_and_click(template, screen, threshold=0.9):
+
+def detect_battle(template, screen, threshold=0.9):
     result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
@@ -32,14 +34,16 @@ def find_and_click(template, screen, threshold=0.9):
 
 
 def move_character():
-    sleep(1)
+    print("Moving character...")
     pyautogui.keyDown('left')
-    sleep(2)
+    sleep(1)
     pyautogui.keyUp('left')
 
     pyautogui.keyDown('right')
-    sleep(2)
+    sleep(1)
     pyautogui.keyUp('right')
+
+    print("Done.")
 
 
 def main():
@@ -47,13 +51,13 @@ def main():
 
     while True:
         screen = capture_screen()
-        found_battle = find_and_click(battle_image, screen)
+        found_battle = detect_battle(battle_image, screen)
 
-        if not found_battle:
-            move_character()
-        else:
-            print("Found battle, exiting program")
+        if found_battle:
+            print("Found battle, exiting program.")
             break
+        else:
+            move_character()
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             print("Stopping program.")
