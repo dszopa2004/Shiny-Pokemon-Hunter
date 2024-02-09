@@ -27,7 +27,7 @@ def detect_battle(template, screen, threshold=0.9):
     if max_val > threshold:
         print("Battle found!")
         return True
-
+    
 
 # Movement function for player
 # Simulates the needed keystrokes to move
@@ -80,14 +80,15 @@ def exit_battle():
     pyautogui.keyUp('x')
     sleep(2)
 
-    print("Done, battle has been exited.")
+    print("Battle has been exited.")
 
 
 def main():
     # Read the battle_image
     battle_image = cv2.imread("battle_image.png", cv2.IMREAD_COLOR)
+    count = 0
 
-    while True:
+    while count < 10:
         screen = capture_screen()
         found_battle = detect_battle(battle_image, screen)
 
@@ -98,7 +99,9 @@ def main():
 
             # Currently exits battle as soon as it enters one
             exit_battle()
-            break
+            count += 1
+            print("Incremented: " + str(count))
+            found_battle = False
         else:
             move_character()
 
