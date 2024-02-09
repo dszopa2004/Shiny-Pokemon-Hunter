@@ -46,6 +46,43 @@ def move_character():
     print("Done.")
 
 
+def exit_battle():
+    print("Exiting battle...")
+    sleep(5)
+
+    print("Press 'x'")
+    pyautogui.keyDown('x')
+    sleep(0.5)
+    pyautogui.keyUp('x')
+    sleep(2)
+
+    print("Press 'down'")
+    pyautogui.keyDown('down')
+    sleep(0.5)
+    pyautogui.keyUp('down')
+    sleep(2)
+
+    print("Press 'right'")
+    pyautogui.keyDown('right')
+    sleep(0.5)
+    pyautogui.keyUp('right')
+    sleep(2)
+
+    print("Press 'x'")
+    pyautogui.keyDown('x')
+    sleep(0.5)
+    pyautogui.keyUp('x')
+    sleep(2)
+
+    print("Press 'x'")
+    pyautogui.keyDown('x')
+    sleep(0.5)
+    pyautogui.keyUp('x')
+    sleep(2)
+
+    print("Done, battle has been exited.")
+
+
 def main():
     battle_image = cv2.imread("battle_image.png", cv2.IMREAD_COLOR)
 
@@ -55,6 +92,8 @@ def main():
 
         if found_battle:
             print("Found battle, exiting program.")
+            sleep(1)
+            exit_battle()
             break
         else:
             move_character()
