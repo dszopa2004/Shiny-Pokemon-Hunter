@@ -19,7 +19,7 @@ def capture_screen(region=None):
 
 
 # Uses image detection to detect if a battle has been found
-def detect_battle(template, screen, threshold=0.9):
+def detect_image(template, screen, threshold=0.9):
     result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
@@ -48,7 +48,7 @@ def move_character():
 # required to leave a battle
 def exit_battle():
     print("Exiting battle...")
-    sleep(5)
+    sleep(3)
 
     print("Press 'x'")
     pyautogui.keyDown('x')
@@ -60,19 +60,19 @@ def exit_battle():
     pyautogui.keyDown('down')
     sleep(0.5)
     pyautogui.keyUp('down')
-    sleep(2)
+    sleep(1)
 
     print("Press 'right'")
     pyautogui.keyDown('right')
     sleep(0.5)
     pyautogui.keyUp('right')
-    sleep(2)
+    sleep(1)
 
     print("Press 'x'")
     pyautogui.keyDown('x')
     sleep(0.5)
     pyautogui.keyUp('x')
-    sleep(2)
+    sleep(1.5)
 
     print("Press 'x'")
     pyautogui.keyDown('x')
@@ -84,23 +84,37 @@ def exit_battle():
 
 
 def main():
+    encounters = 0
     # Read the battle_image
     battle_image = cv2.imread("battle_image.png", cv2.IMREAD_COLOR)
-    count = 0
+    rattata_image = cv2.imread("images/rattata.png", cv2.IMREAD_COLOR)
+    pidgey_image = cv2.imread("images/pidgey.png", cv2.IMREAD_COLOR)
 
-    while count < 10:
+    while True:
         screen = capture_screen()
-        found_battle = detect_battle(battle_image, screen)
+        found_battle = detect_image(battle_image, screen)
 
-        # Moves character until the battle_image is detected
+
+        # Moves character until the the encountered pokemon is not rattata or pidgey
         if found_battle:
-            print("Found battle, exiting program.")
+            found_rattata = detect_image(rattata_image, screen)
+            found_pidgey = detect_image(pidgey_image, screen)
+
+            if not found_rattata and not found_pidgey:
+                print("--------------------")
+                print("Found other Pokemon!")
+                print("Encounters: " + str(encounters))
+                print("--------------------")
+                break
+
+            print("--------------------")
+            print("Found battle.")
+            print("--------------------")
             sleep(1)
 
             # Currently exits battle as soon as it enters one
             exit_battle()
-            count += 1
-            print("Incremented: " + str(count))
+            encounters += 1
             found_battle = False
         else:
             move_character()
