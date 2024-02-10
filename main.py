@@ -32,7 +32,6 @@ def detect_image(template, screen, threshold=0.9):
 # Movement function for player
 # Simulates the needed keystrokes to move
 def move_character():
-    print("Moving character...")
     pyautogui.keyDown('left')
     sleep(1)
     pyautogui.keyUp('left')
@@ -41,8 +40,6 @@ def move_character():
     sleep(1)
     pyautogui.keyUp('right')
 
-    print("Done.")
-
 
 # Function exits the battle by simulating the keystrokes
 # required to leave a battle
@@ -50,31 +47,26 @@ def exit_battle():
     print("Exiting battle...")
     sleep(3)
 
-    print("Press 'x'")
     pyautogui.keyDown('x')
     sleep(0.5)
     pyautogui.keyUp('x')
     sleep(2)
 
-    print("Press 'down'")
     pyautogui.keyDown('down')
     sleep(0.5)
     pyautogui.keyUp('down')
     sleep(1)
 
-    print("Press 'right'")
     pyautogui.keyDown('right')
     sleep(0.5)
     pyautogui.keyUp('right')
     sleep(1)
 
-    print("Press 'x'")
     pyautogui.keyDown('x')
     sleep(0.5)
     pyautogui.keyUp('x')
     sleep(1.5)
 
-    print("Press 'x'")
     pyautogui.keyDown('x')
     sleep(0.5)
     pyautogui.keyUp('x')
@@ -115,6 +107,7 @@ def main():
             # Currently exits battle as soon as it enters one
             exit_battle()
             encounters += 1
+            print("Encounters: " + str(encounters))
             found_battle = False
         else:
             move_character()
