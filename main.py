@@ -11,6 +11,8 @@ print("After pressing 'k', press 'q' to stop the program.")
 keyboard.wait('k')
 print("Starting the program...")
 
+stop_flag = False
+
 # Capture screen
 def capture_screen(region=None):
     screenshot = pyautogui.screenshot(region=region)
@@ -40,24 +42,6 @@ def move_character():
     pyautogui.keyDown('right')
     sleep(1)
     pyautogui.keyUp('right')
-
-
-def detect_shiny():
-    shiny_image = cv2.imread("images/shiny_star.png", cv2.IMREAD_COLOR)
-
-    while True:
-        screen = capture_screen()
-        found_shiny = detect_image(shiny_image, screen)
-
-        # Moves character until the the encountered pokemon is not rattata or pidgey
-        if found_shiny:
-            print("--------------------")
-            print("Found shiny. Exiting...")
-            print("--------------------")
-            sleep(1)
-            break
-
-    cv2.destroyAllWindows()
 
 
 def exit_battle():
@@ -91,15 +75,34 @@ def exit_battle():
 
     print("Battle has been exited.")
 
+
+def detect_shiny():
+    global stop_flag
+    shiny_image = cv2.imread("images/shiny_star.png", cv2.IMREAD_COLOR)
+
+    while not stop_flag:
+        screen = capture_screen()
+        found_shiny = detect_image(shiny_image, screen)
+
+        # Moves character until the the encountered pokemon is not rattata or pidgey
+        if found_shiny:
+            print("--------------------")
+            print("Found shiny. Exiting...")
+            print("--------------------")
+            sleep(1)
+            stop_flag = True
+
+    cv2.destroyAllWindows()
+
+
 def detect_battle():
     encounters = 0
     # Read the battle_image
     battle_image = cv2.imread("battle_image.png", cv2.IMREAD_COLOR)
 
-    while True:
+    while not stop_flag:
         screen = capture_screen()
         found_battle = detect_image(battle_image, screen)
-
 
         # Moves character until the the encountered pokemon is not rattata or pidgey
         if found_battle:
