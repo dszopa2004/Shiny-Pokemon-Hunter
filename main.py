@@ -47,7 +47,7 @@ def move_character():
 
 def exit_battle():
     print("Exiting battle...")
-    sleep(3)
+    sleep(1)
 
     pyautogui.keyDown('x')
     sleep(0.5)
@@ -99,7 +99,7 @@ def detect_shiny():
 def detect_battle():
     global encounters
     # Read the battle_image
-    battle_image = cv2.imread("battle_image.png", cv2.IMREAD_COLOR)
+    battle_image = cv2.imread("images/battle_image.png", cv2.IMREAD_COLOR)
 
     while not stop_flag:
         screen = capture_screen()
