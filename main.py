@@ -53,24 +53,24 @@ def exit_battle():
     sleep(2)
 
     pyautogui.keyDown('down')
-    sleep(0.5)
+    sleep(0.1)
     pyautogui.keyUp('down')
-    sleep(1)
+    sleep(0.5)
 
     pyautogui.keyDown('right')
-    sleep(0.5)
+    sleep(0.1)
     pyautogui.keyUp('right')
+    sleep(0.2)
+
+    pyautogui.keyDown('x')
+    sleep(0.3)
+    pyautogui.keyUp('x')
+    sleep(0.5)
+
+    pyautogui.keyDown('x')
+    sleep(0.3)
+    pyautogui.keyUp('x')
     sleep(1)
-
-    pyautogui.keyDown('x')
-    sleep(0.5)
-    pyautogui.keyUp('x')
-    sleep(1.5)
-
-    pyautogui.keyDown('x')
-    sleep(0.5)
-    pyautogui.keyUp('x')
-    sleep(2)
 
     print("Battle has been exited.")
 
