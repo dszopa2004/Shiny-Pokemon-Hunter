@@ -2,7 +2,8 @@ import cv2
 import pyautogui
 import keyboard
 import numpy as np
-from time import time, sleep
+from time import sleep
+import threading
 
 # Once 's' is pressed, program starts
 print("Press 'k' to start the program.")
@@ -25,7 +26,7 @@ def detect_image(template, screen, threshold=0.9):
 
     # Check if the match is above the threshold
     if max_val > threshold:
-        print("Battle found!")
+        print("Image found.")
         return True
     
 
@@ -41,8 +42,24 @@ def move_character():
     pyautogui.keyUp('right')
 
 
-# Function exits the battle by simulating the keystrokes
-# required to leave a battle
+def detect_shiny():
+    shiny_image = cv2.imread("images/shiny_star.png", cv2.IMREAD_COLOR)
+
+    while True:
+        screen = capture_screen()
+        found_shiny = detect_image(shiny_image, screen)
+
+        # Moves character until the the encountered pokemon is not rattata or pidgey
+        if found_shiny:
+            print("--------------------")
+            print("Found shiny. Exiting...")
+            print("--------------------")
+            sleep(1)
+            break
+
+    cv2.destroyAllWindows()
+
+
 def exit_battle():
     print("Exiting battle...")
     sleep(3)
@@ -74,13 +91,10 @@ def exit_battle():
 
     print("Battle has been exited.")
 
-
-def main():
+def detect_battle():
     encounters = 0
     # Read the battle_image
     battle_image = cv2.imread("battle_image.png", cv2.IMREAD_COLOR)
-    rattata_image = cv2.imread("images/rattata.png", cv2.IMREAD_COLOR)
-    pidgey_image = cv2.imread("images/pidgey.png", cv2.IMREAD_COLOR)
 
     while True:
         screen = capture_screen()
@@ -89,16 +103,6 @@ def main():
 
         # Moves character until the the encountered pokemon is not rattata or pidgey
         if found_battle:
-            found_rattata = detect_image(rattata_image, screen)
-            found_pidgey = detect_image(pidgey_image, screen)
-
-            if not found_rattata and not found_pidgey:
-                print("--------------------")
-                print("Found other Pokemon!")
-                print("Encounters: " + str(encounters))
-                print("--------------------")
-                break
-
             print("--------------------")
             print("Found battle.")
             print("--------------------")
@@ -118,5 +122,12 @@ def main():
 
     cv2.destroyAllWindows()
 
+
+def main():
+    shiny_thread = threading.Thread(target=detect_shiny)
+    battle_thread = threading.Thread(target=detect_battle)
+
+    shiny_thread.start()
+    battle_thread.start()
 
 main()
