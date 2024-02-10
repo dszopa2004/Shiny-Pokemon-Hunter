@@ -12,6 +12,7 @@ keyboard.wait('k')
 print("Starting the program...")
 
 stop_flag = False
+encounters = 0
 
 # Capture screen
 def capture_screen(region=None):
@@ -88,15 +89,15 @@ def detect_shiny():
         if found_shiny:
             print("--------------------")
             print("Found shiny. Exiting...")
+            print("Encounters: " + str(encounters + 1))
             print("--------------------")
-            sleep(1)
             stop_flag = True
 
     cv2.destroyAllWindows()
 
 
 def detect_battle():
-    encounters = 0
+    global encounters
     # Read the battle_image
     battle_image = cv2.imread("battle_image.png", cv2.IMREAD_COLOR)
 
