@@ -14,6 +14,7 @@ print("Starting the program...")
 stop_flag = False
 encounters = 0
 
+
 # Capture screen
 def capture_screen(region=None):
     screenshot = pyautogui.screenshot(region=region)
@@ -29,9 +30,8 @@ def detect_image(template, screen, threshold=0.9):
 
     # Check if the match is above the threshold
     if max_val > threshold:
-        print("Image found.")
         return True
-    
+
 
 # Movement function for player
 # Simulates the needed keystrokes to move
@@ -45,6 +45,8 @@ def move_character():
     pyautogui.keyUp('right')
 
 
+# This function performs the necessary
+# Keystrokes to exit a battle quickly
 def exit_battle():
     print("Exiting battle...")
     sleep(1)
@@ -77,42 +79,44 @@ def exit_battle():
     print("Battle has been exited.")
 
 
+# This function looks for the sparkles of a shiny Pokemon appearing
 def detect_shiny():
-    global stop_flag
+    global stop_flag # This allows the program to stop when a shiny is detected
     shiny_image = cv2.imread("images/shiny_star.png", cv2.IMREAD_COLOR)
 
     while not stop_flag:
         screen = capture_screen()
         found_shiny = detect_image(shiny_image, screen)
 
-        # Moves character until the the encountered pokemon is not rattata or pidgey
+        # If a shiny is found, exit program and print encounters
         if found_shiny:
             print("--------------------")
             print("Found shiny. Exiting...")
             print("Encounters: " + str(encounters + 1))
             print("--------------------")
-            stop_flag = True
+            stop_flag = True # Set stop flag to true to exit program
 
     cv2.destroyAllWindows()
 
 
+# This function detects and exits the battles
+# It also moves the character until a battle is found
 def detect_battle():
     global encounters
-    # Read the battle_image
     battle_image = cv2.imread("images/battle_image.png", cv2.IMREAD_COLOR)
 
     while not stop_flag:
         screen = capture_screen()
         found_battle = detect_image(battle_image, screen)
 
-        # Moves character until the the encountered pokemon is not rattata or pidgey
+        # Moves character until battle is entered
         if found_battle:
             print("--------------------")
             print("Found battle.")
             print("--------------------")
             sleep(1)
 
-            # Currently exits battle as soon as it enters one
+            # Exit the battle and print the encounters
             exit_battle()
             encounters += 1
             print("Encounters: " + str(encounters))
@@ -127,11 +131,16 @@ def detect_battle():
     cv2.destroyAllWindows()
 
 
+# Create threads so that the shiny sparkles can be detected as soon as possible
+# This way, the character can be constantly moving and exiting battles
+# Without worrying about the program missing the sparkle animation
+# This also allows the program to hunt any shiny wild encounter in the game
 def main():
     shiny_thread = threading.Thread(target=detect_shiny)
     battle_thread = threading.Thread(target=detect_battle)
 
     shiny_thread.start()
     battle_thread.start()
+
 
 main()
