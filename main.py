@@ -5,11 +5,11 @@ import numpy as np
 from time import sleep
 import threading
 
-# Once 's' is pressed, program starts
+# Once 'k' is pressed, program starts
 print("Press 'k' to start the program.")
-print("After pressing 'k', press 'q' to stop the program.")
 keyboard.wait('k')
 print("Starting the program...")
+print("Program started. Press 'q' to stop the program.")
 
 stop_flag = False
 encounters = 0
@@ -124,11 +124,18 @@ def detect_battle():
         else:
             move_character()
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            print("Stopping program.")
-            break
-
     cv2.destroyAllWindows()
+
+
+# Exit function for program
+def exit_program(e):
+    global stop_flag
+    print("Stopping program.")
+    stop_flag = True
+
+
+# Set the callback for 'q' key
+keyboard.on_press_key('q', exit_program)
 
 
 # Create threads so that the shiny sparkles can be detected as soon as possible
