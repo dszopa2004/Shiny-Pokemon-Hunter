@@ -10,8 +10,8 @@ def get_encounters():
 def update_encounters():
     global encounters_label
     encounters = get_encounters()
-    
-    encounters_label.config(text=str(encounters))
+
+    encounters_label.config(text="Encounters: " + str(encounters))
     encounters_label.after(1000, update_encounters)
     
 
