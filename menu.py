@@ -2,11 +2,16 @@ import tkinter as tk
 import main as app
 import sys
 
+
+# This function is used to close the program
+# The player will continue to move in the same direction
+# Until the same corressponding directional movement key is pressed
 def close():
     app.stop_flag = True
     print("Exiting Program.")
     sys.exit()
 
+# Creates the GUI menu with Tkinter
 def menu():
     root = tk.Tk()
     root.title("Shiny Hunter")
@@ -19,5 +24,6 @@ def menu():
     stop_btn.pack()
 
     root.mainloop()
+
 
 menu()
