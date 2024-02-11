@@ -5,12 +5,7 @@ import numpy as np
 from time import sleep
 import threading
 
-# Once 'k' is pressed, program starts
-print("Press 'k' to start the program.")
-keyboard.wait('k')
-print("Starting the program...")
-print("Program started. Press 'q' to stop the program.")
-
+print("Starting program.")
 stop_flag = False
 encounters = 0
 
@@ -148,6 +143,3 @@ def main():
 
     shiny_thread.start()
     battle_thread.start()
-
-
-main()
