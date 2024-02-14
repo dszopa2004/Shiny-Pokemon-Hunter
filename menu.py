@@ -31,6 +31,8 @@ def get_prev_encounters():
     return prev_encounters
 
 
+# This function is used to display the total encounters 
+# That are stored in the json file
 def load_encounters():
     global total_encounters_label
     prev_encounters = get_prev_encounters()
@@ -38,6 +40,7 @@ def load_encounters():
 
 
 # This function saves the current encounters to the json
+# It also exits the program after saving
 def save_encounters():
     prev_encounters = get_prev_encounters()
     curr_encounters = get_encounters()
