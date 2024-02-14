@@ -20,14 +20,25 @@ def update_encounters():
     encounters_label.after(1000, update_encounters)
 
 
-# This function saves the current encounters to the json
-def save_encounters():
+# Gets the number of encounters that are in the json file
+def get_prev_encounters():
     file = open('encounters.json')
     data = json.load(file)
 
     prev_encounters = data["encounters"]
     file.close()
 
+    return prev_encounters
+
+
+def load_encounters():
+    prev_encounters = get_prev_encounters()
+    encounters_label.config(text="Encounters: " + str(prev_encounters))
+
+
+# This function saves the current encounters to the json
+def save_encounters():
+    prev_encounters = get_prev_encounters()
     curr_encounters = get_encounters()
 
     total_encounters = prev_encounters + curr_encounters
