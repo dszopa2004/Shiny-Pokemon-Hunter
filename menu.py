@@ -36,7 +36,7 @@ def get_prev_encounters():
 def load_encounters():
     global total_encounters_label
     prev_encounters = get_prev_encounters()
-    total_encounters_label.config(text="Total Encounters: " + str(prev_encounters))
+    total_encounters_label.config(text="Total Saved Encounters: " + str(prev_encounters))
 
 
 # This function saves the current encounters to the json
@@ -80,7 +80,7 @@ def menu():
     stop_btn = tk.Button(root, text="Stop", width=25, command=close)
     save_btn = tk.Button(root, text="Save & Exit", width=25, command=save_encounters)
     encounters_label = tk.Label(root, text="Current Encounters: 0")
-    total_encounters_label = tk.Label(root, text="Total Encounters: 0")
+    total_encounters_label = tk.Label(root, text="Total Saved Encounters: 0")
 
     start_btn.pack()
     stop_btn.pack()
