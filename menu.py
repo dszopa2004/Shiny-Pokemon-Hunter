@@ -59,15 +59,6 @@ def save_encounters():
     sys.exit()
 
 
-# This function is used to close the program
-# The player will continue to move in the same direction
-# Until the same corressponding directional movement key is pressed
-def close():
-    app.stop_flag = True
-    print("Exiting Program.")
-    sys.exit()
-
-
 # Creates the GUI menu with Tkinter
 def menu():
     global encounters_label
@@ -77,13 +68,11 @@ def menu():
     root.geometry("400x300+300+120")
 
     start_btn = tk.Button(root, text="Start", width=25, command=app.main)
-    stop_btn = tk.Button(root, text="Stop", width=25, command=close)
     save_btn = tk.Button(root, text="Save & Exit", width=25, command=save_encounters)
     encounters_label = tk.Label(root, text="Current Encounters: 0")
     total_encounters_label = tk.Label(root, text="Total Saved Encounters: 0")
 
     start_btn.pack()
-    stop_btn.pack()
     encounters_label.pack()
     total_encounters_label.pack()
     save_btn.pack()
