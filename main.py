@@ -4,6 +4,7 @@ import keyboard
 import numpy as np
 from time import sleep
 import threading
+import save as save
 
 # Once 'k' is pressed, program starts
 print("Press 'k' to start the program. Press 'i' to view controls.")
@@ -127,20 +128,27 @@ def detect_battle():
     cv2.destroyAllWindows()
 
 
-# Exit function for program
+# Print the saved encounters in JSON
+def print_saved_encounters(e):
+    save.cmd_load_encounters()
+
+
+# Exit function for program (CURRENTLY DOES NOT SAVE)
 def exit_program(e):
     global stop_flag
     print("Stopping program.")
     stop_flag = True
 
 
-
+# Print the controls
 def print_controls(e):
     print("Press 'q' to save & exit.")
+    print("Press 'j' to view saved encounters.")
 
 # Set the callback for 'q' key
 keyboard.on_press_key('q', exit_program)
 keyboard.on_press_key('i', print_controls)
+keyboard.on_press_key('j', print_saved_encounters)
 
 
 # Create threads so that the shiny sparkles can be detected as soon as possible
