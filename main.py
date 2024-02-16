@@ -6,7 +6,7 @@ from time import sleep
 import threading
 
 # Once 'k' is pressed, program starts
-print("Press 'k' to start the program.")
+print("Press 'k' to start the program. Press 'i' to view controls.")
 keyboard.wait('k')
 print("Starting the program...")
 print("Program started. Press 'q' to stop the program.")
@@ -134,8 +134,13 @@ def exit_program(e):
     stop_flag = True
 
 
+
+def print_controls(e):
+    print("Press 'q' to save & exit.")
+
 # Set the callback for 'q' key
 keyboard.on_press_key('q', exit_program)
+keyboard.on_press_key('i', print_controls)
 
 
 # Create threads so that the shiny sparkles can be detected as soon as possible
