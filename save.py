@@ -18,6 +18,15 @@ def __get_prev_encounters():
     return prev_encounters
 
 
+# This function is used to display the total encounters
+# That are stored in the json file in the CMD mode
+def cmd_load_encounters():
+    prev_encounters = __get_prev_encounters()
+    print("--------------------------------------")
+    print("Total Saved Encounters: " + str(prev_encounters))
+    print("--------------------------------------")
+
+
 # This function is used to display the total encounters 
 # That are stored in the json file
 def load_encounters(label):
