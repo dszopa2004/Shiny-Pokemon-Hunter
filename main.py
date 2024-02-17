@@ -5,12 +5,14 @@ import numpy as np
 from time import sleep
 import threading
 import save as save
+import json
+import sys
 
 # Once 'k' is pressed, program starts
-print("Press 'k' to start the program. Press 'i' to view controls.")
+print("Press 'k' to start the program.")
 keyboard.wait('k')
 print("Starting the program...")
-print("Program started. Press 'q' to stop the program.")
+print("Program started. Press 'q' to stop the program. Press 'i' to view controls.")
 
 stop_flag = False
 encounters = 0
@@ -133,11 +135,24 @@ def print_saved_encounters(e):
     save.cmd_load_encounters()
 
 
-# Exit function for program (CURRENTLY DOES NOT SAVE)
+# Exit function for program
 def exit_program(e):
     global stop_flag
-    print("Stopping program.")
+    prev_encounters = save.__get_prev_encounters()
+    curr_encounters = encounters
+
+    total_encounters = prev_encounters + curr_encounters
+
+    dictionary = {
+        "encounters": total_encounters
+    }
+
+    with open('encounters.json', 'w') as json_file:
+        json.dump(dictionary, json_file)
+    
     stop_flag = True
+    print("Exiting Program.")
+
 
 
 # Print the controls
