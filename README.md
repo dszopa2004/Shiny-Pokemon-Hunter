@@ -1,5 +1,4 @@
 # A shiny hunting application for Pokemon Fire Red and Leaf Green
-![Static Badge](https://img.shields.io/badge/releases?style=for-the-badge)
 
 ## A fully functional shiny hunting application written entirely in Python. This application fully automates the following:
 
