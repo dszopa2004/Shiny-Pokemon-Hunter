@@ -6,6 +6,7 @@
 * Detecting if an encounter is a shiny Pokemon
 * Exiting the battle if it is not a shiny
 * Resume walking to find encounters in grass
+* Tracking the encounters and saving them into a JSON
 
 ## DISCLAIMER
 This application is only intended to be used with an emulator, such as mGBA. I cannot and will not provide any game ROMs, nor do I take responsibility for any damages that may happen if someone were to download and use a game ROM.
