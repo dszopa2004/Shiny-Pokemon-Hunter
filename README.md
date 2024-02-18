@@ -1,4 +1,4 @@
-# An auto-shiny hunting application for Pokemon Fire Red and Leaf Green
+# A shiny hunting application for Pokemon Fire Red and Leaf Green
 
 ## A fully functional shiny hunting application written entirely in Python. This application fully automates the following:
 
