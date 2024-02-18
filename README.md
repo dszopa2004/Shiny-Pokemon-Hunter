@@ -1,2 +1,2 @@
-# Shiny-Pokemon-Hunter
+# Shiny Pokemon Hunter
 An application that hunts shiny Pokemon
