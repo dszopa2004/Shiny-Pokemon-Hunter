@@ -19,3 +19,4 @@ This application is only intended to be used with an emulator, such as mGBA. I c
 * If your file is on a different drive from C:, simply type the letter of the drive in the command prompt as so: "D:"
 * While in the directory of the extracted folder, type "python main.py" to run the application.
 * The controls to the application can be seen once the application has been started.
+*  **Please make sure to install the CMD version if you want to use the command-line, these instructions WILL NOT work for the GUI version.**
